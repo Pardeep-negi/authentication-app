@@ -1,8 +1,8 @@
 Flask==2.3.3
-Flask-SQLAlchemy==3.1.1
-SQLAlchemy==2.1.0
-bcrypt==4.1.2
+Flask-SQLAlchemy==3.0.5
+SQLAlchemy==2.0.23
+bcrypt==4.0.1
 gunicorn==21.2.0
-Werkzeug==2.3.7
+
 
 
