@@ -4,6 +4,9 @@ import bcrypt
 import os
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,
+}
 db = SQLAlchemy(app)
 app.secret_key = "secret_key"
 
@@ -20,7 +23,11 @@ class User(db.Model):
     def check_password(self, password):
         return bcrypt.checkpw(password.encode('utf-8'), self.password)
 with app.app_context():
-    db.create_all()        
+    try:
+        db.create_all()
+    except Exception as e:
+        print(f"Database initialization error: {e}")
+        pass        
 @app.route('/')
 def home():
     return render_template("index.html")
